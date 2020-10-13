@@ -1,0 +1,189 @@
+1. Write a program that takes a command-line argument n and prints a table of the powers of 2 that are less than or equal to 2^n till 256 is reached.. 
+
+Solution : 
+
+#!/bin/bash
+
+a=2 
+i=0 
+
+echo "Enter the number" 
+
+read n 
+
+while [ $i -lt $n ] 
+do 
+	pow=$(( $a**$i )) 
+
+if [ $pow -lt 256 ] 
+	then 
+	echo "$a ^ $i = $pow" 
+fi 
+
+i=$(( $i + 1 )) 
+
+done 
+
+Output 1 : 
+
+$ ./powerof2.sh 
+Enter the number 
+15 
+2 ^ 0 = 1 
+2 ^ 1 = 2 
+2 ^ 2 = 4 
+2 ^ 3 = 8 
+2 ^ 4 = 16 
+2 ^ 5 = 32 
+2 ^ 6 = 64 
+2 ^ 7 = 128 
+
+Output 2 : 
+
+$ ./powerof2.sh 
+Enter the number 
+10 
+2 ^ 0 = 1 
+2 ^ 1 = 2 
+2 ^ 2 = 4 
+2 ^ 3 = 8 
+2 ^ 4 = 16
+2 ^ 5 = 32 
+2 ^ 6 = 64 
+2 ^ 7 = 128 
+
+2. Find the Magic Number 
+a. Ask the user to think of a number n between 1 to 100 b. Then check with the user if the number is less then n/2 or greater c. Repeat till the Magic Number is reached.. 
+
+Solution : 
+#!/bin/bash/ 
+
+read n 
+low=1 
+high=100 
+
+echo "Enter the number you guessed between 1 to 100" 
+
+if [ $n -lt 1 -o $n -gt 100 ]; 
+	then 
+	echo "The number must be between 1 to 100." 
+fi 
+
+while [ $n > 0 ] 
+do 
+	mid=$(( $low + $(( $high - $low )) / 2 )) 
+
+if [ $n -lt $mid ] 
+	then 
+	high=$(( $mid - 1 )) 
+
+elif [ $n -gt $mid ] 
+	then 
+	low=$(( $mid + 1 )) 
+
+else 
+	echo "The number you guessed is $n" 
+	break 
+fi 
+
+done 
+
+Output 1 : 
+
+$ ./magicno.sh 
+Enter the number you guessed between 1 to 100 
+57 
+The number you guessed is 57
+
+Output 2 : 
+
+$ ./magicno.sh 
+Enter the number you guessed between 1 to 100
+84 
+The number you guessed is 84 
+		
+3. Extend the Flip Coin problem till either Heads or Tails wins 11 times. Solution : 
+
+#!/bin/bash/ 
+
+echo "Flip the coin" 
+
+H=0 
+T=0 
+
+while [ $H -ne 11 -a $T -ne 11 ] 
+do 
+	random=$(( $RANDOM % 2 )); 
+ 
+if [ $random -eq 0 ] 
+	then 
+	H=`expr $H + 1`
+else 
+	T=`expr $T + 1` 
+fi 
+
+done 
+
+if [ $H -eq 11 ] 
+	then
+	echo "Head Wins" 
+else
+	echo "Tail Wins" 
+fi 
+
+Output 1 : 
+
+$ ./flipthecoin.sh 
+Flip the coin 
+Tail Wins 
+
+Output 3 :
+$ ./flipthecoin.sh 
+Flip the coin 
+Head Wins 
+
+4. Write a Program where a gambler starts with Rs 100 and places Re 1 bet until he/she goes broke i.e. no more money to gamble or reaches the goal of Rs 200. Keeps track of number of times won and number of bets made. 
+
+Solution : 
+
+#!/bin/bash/
+
+cash=100 
+goal=0 
+
+while [ $cash -ne 0 ] 
+do 
+	random=$(( $RANDOM % 2 )) 
+	rem=$(( $random % 2 )) 
+
+if [ $rem -eq 0 ] 
+	then 
+	cash=$(( $cash + 10 )) 
+	goal=$cash 
+else 
+	cash=$(( $cash - 10 )) 
+	goal=$cash 
+fi
+
+if [ $goal -eq 0 ] 
+	then 
+	echo "You lost" 
+	break
+ 
+elif [ $goal -eq 200 ] 
+	then 
+	echo "You won" 
+	break 
+fi 
+
+done 
+
+Output : 
+
+$ ./gamblerprob.sh 
+You lost
+
+Output : 
+
+$ ./gamblerprob.sh 
+You won

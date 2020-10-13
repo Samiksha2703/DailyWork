@@ -1,0 +1,211 @@
+1. Help user find degF or degC based on their Conversion Selection. Use Case Statement and ensure that the inputs are within the Freezing Point ( 0 °C / 32 °F ) and the Boiling Point of Water ( 100 °C / 212 °F ) 
+a. degF = (degC * 9/5) + 32 
+b. degC = (degF – 32) * 5/9 
+
+Solution: 
+
+#!/bin/bash/
+
+degC () { 
+
+echo "Enter the number to convert into degC between freezing point 32-212" read n 
+
+if [ $n -ge 32 -a $n -le 212 ] 
+	then 
+	addC=`echo "scale=2; $n-32" | bc -l` 
+	degC=`echo "scale=2; $addC*5/9" | bc -l` 
+	echo "$n degF = $degC degC" 
+else 
+	echo "The value is not in range" 
+fi
+ 
+} 
+
+degF () { 
+
+echo "Enter the number to convert into degF between freezing point 0-100" read m 
+
+if [ $m -ge 0 -a $m -le 100 ] 
+	then 
+	addF=`echo "scale=2; $m*9/5" | bc -l` 
+	degF=`echo "scale=2; $addF+32" | bc -l` 
+	echo "$m degC = $degF degF" 
+else 
+	echo "The value is not in range" 
+fi 
+
+} 
+
+echo "To convert value into degC enter 1 to convert into degF enter 0" read p 
+
+if [ $p -eq 1 ] 
+	then 
+	degC 
+
+elif [ $p -eq 0 ] 
+	then 
+	degF 
+fi 
+
+Output:
+
+$ ./DecFar.sh 
+To convert value into degC enter 1 to convert into degF enter 0 
+1 
+Enter the number to convert into degC between freezing point 32-212 98 
+98 degF = 36.66 degC 
+
+Output : 
+
+$ ./DecFar.sh 
+To convert value into degC enter 1 to convert into degF enter 0 
+0 
+Enter the number to convert into degF between freezing point 0-100 90 
+90 degC = 194.00 degF 
+
+2. Write a function to check if the two numbers are Palindromes Solution : 
+
+myfunc () { 
+
+rem=0 
+pal=0 
+
+echo "Finding palindrome number" 
+
+while [ $temp -gt 0 ] 
+do 
+	rem=$(( $temp % 10 )) 
+	pal=`expr $pal \* 10 + $rem` 
+	temp=$(( $temp / 10 )) 
+done 
+
+} 
+
+echo "Entered the number to find whether it is palindrome or not"
+
+read n 
+temp=$n 
+
+myfunc $temp 
+
+if [ $pal -eq $n ] 
+	then 
+	echo "The number is palindrome" 
+else 
+	echo "The number is not palindrome" 
+fi 
+
+Output 1 :
+
+$ ./PalNo.sh 
+Entered the number to find whether it is palindrome or not 
+22 
+The number is palindrome 
+
+Output 2 : 
+
+$ ./PalNo.sh 
+Entered the number to find whether it is palindrome or not 
+21 
+The number is not palindrome 
+
+3. Take a number from user and check if the number is a Prime then show that its palindrome is also prime. 
+
+Solution : 
+
+#!/bin/bash/ 
+
+prime () 
+
+{ 
+
+flag=0 
+
+if [ $n -eq 0 -o $n -eq 1 ] 
+	then flag=1 
+fi 
+
+if [ $n > 2 ] 
+	then 
+	for (( i=2; i<n; i++ )) 
+do 
+
+check=$(( $n % $i )) 
+
+if [ $check -eq 0 ] 
+	then 
+	flag=1 
+	break 
+fi 
+
+done 
+
+fi 
+
+} 
+
+pal () { 
+
+temp=$n 
+rem=0 
+pal=0 
+
+while [ $temp -gt 0 ] 
+do 
+	rem=$(( $temp % 10 ))
+	pal=`expr $pal \* 10 + $rem` 
+	temp=$(( $temp / 10 )) 
+done
+ 
+} 
+
+echo "Enter the number" 
+
+read n 
+prime $n 
+
+if [ $flag -eq 0 ] 
+	then 
+	echo "The number is prime number" 
+pal $n 
+
+if [ $pal -eq $n ] 
+	then 
+	echo "The palindrome of $n is $pal" 
+
+echo "The number and it's palindrome both are prime numbers" else 
+
+echo "The number is not palindrome" 
+
+fi 
+
+else 
+
+echo "The number is not prime number" 
+
+fi 
+
+Output 1 : 
+
+$ ./PriandPalNo.sh 
+Enter the number 
+151 
+The number is prime number 
+The palindrome of 151 is 151 
+The number and it's palindrome both are prime numbers 
+
+Output 2 : 
+
+$ ./PriandPalNo.sh 
+Enter the number 
+727 
+The number is prime number 
+The palindrome of 727 is 727 
+The number and it's palindrome both are prime numbers 
+
+Output 3 : 
+
+$ ./PriandPalNo.sh 
+Enter the number
+12 
+Thenumber isnotprimenumber

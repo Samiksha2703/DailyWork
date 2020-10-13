@@ -1,0 +1,274 @@
+Dictionary Practice Problems 
+
+1. Write a program in the following steps 
+a. Roll a die and find the number between 1 to 6 
+b. Repeat the Die roll and find the result each time 
+c. Store the result in a dictionary 
+d. Repeat till any one of the number has reached 10 times 
+e. Find the number that reached maximum times and the one that was for minimum times 
+Solution : 
+
+#!/bin/bash/
+
+declare -A num 
+
+one=0 
+two=0 
+three=0 
+four=0 
+five=0 
+six=0 
+ 
+while [[ $one -ne 10 && $two -ne 10 && $three -ne 10 && $four -ne 10 && $five -ne 10 && $six -ne 10 ]] 
+do 
+	random=$(( $RANDOM % 6 + 1 )) 
+
+	case $random in 
+	
+	1) 
+	one=$(( $one + 1 )) 
+	num[1]=$one 
+	;; 
+
+	2) 
+	two=$(( $two + 1 )) 
+	num[2]=$two 
+	;; 
+
+	3) 
+	three=$(( $three + 1 )) 
+	num[3]=$three 
+	;; 
+	
+	4) 
+	four=$(( $four + 1 )) 
+	num[4]=$four 
+	;; 
+
+	5) 
+	five=$(( $five + 1 ))
+	num[5]=$five 
+	;; 
+
+	6) 
+	six=$(( $six + 1 )) 
+	num[6]=$six 
+	;; 
+
+	esac 
+done 
+
+echo "One of the number has reached 10" 
+
+for i in ${!num[@]} 
+do 
+	echo "$i : ${num[$i]}" 
+
+	if [ $i -eq 1 ] 
+		then 
+		max="${num[$i]}" 
+		min="${num[$i]}" 
+		minInd="$i" 
+		maxInd="$i" 
+
+	elif [ ${num[$i]} -gt $max ] 
+		then max="${num[$i]}" 
+		maxInd="$i" 
+
+	elif [ ${num[$i]} -lt $min ] 
+		then 
+		min="${num[$i]}" 
+		minInd="$i" 
+	fi 
+done 
+
+echo "Number = $maxInd reached maximum time ( $max )" echo "Number = $minInd reached minimum time ( $min )" 
+
+Output 1 : 
+
+$ ./Die1problem.sh 
+One of the number has reached 10 
+1 : 3 
+2 : 4 
+3 : 6 
+4 : 10 
+5 : 6 
+6 : 7 
+Number = 4 reached maximum time ( 10 ) 
+Number = 1 reached minimum time ( 3 ) 
+
+Output 2 :
+
+$ ./Die1problem.sh 
+One of the number has reached 10 
+1 : 4 
+2 : 3 
+3 : 6 
+4 : 10 
+5 : 2 
+6 : 9 
+Number = 4 reached maximum time ( 10 ) 
+Number = 5 reached minimum time ( 2 ) 
+
+2. Write a Program to generate a birth month of 50 individuals between the year 92 & 93. Find all the individuals having birthdays in the same month. Store it to 
+
+Solution : 
+
+#!/bin/bash/ 
+
+declare -A mon 
+
+N=10 
+
+jan=0 
+feb=0 
+mar=0 
+apr=0 
+may=0 
+jun=0 
+jul=0 
+aug=0 
+sep=0 
+oct=0 
+nov=0 
+dec=0 
+
+mon[1]=0 
+mon[2]=0 
+mon[3]=0 
+mon[4]=0 
+mon[5]=0 
+mon[6]=0 
+mon[7]=0 
+mon[8]=0 
+mon[9]=0 
+mon[10]=0 
+mon[11]=0 
+mon[12]=0
+
+
+for i in `seq $N` 
+do 
+	R=$(( $RANDOM % 24 + 1 )) echo $R 
+
+	if [ $R -eq 1 -o $R -eq 13 ]
+		then 
+		jan=$(( $jan + 1 )) 
+		mon[1]=$jan 
+
+	elif [ $R -eq 2 -o $R -eq 14 ]
+		then 
+		feb=$(( $feb + 1 )) 
+		mon[2]=$feb 
+
+	elif [ $R -eq 3 -o $R -eq 15 ]
+		then 
+		mar=$(( $mar + 1 )) 
+		mon[3]=$mar 
+
+	elif [ $R -eq 4 -o $R -eq 16 ]
+		then 
+		apr=$(( $apr + 1 )) 
+		mon[4]=$apr 
+
+	elif [ $R -eq 5 -o $R -eq 17 ]
+		then 
+		may=$(( $may + 1 )) 
+		mon[5]=$may
+ 
+	elif [ $R -eq 6 -o $R -eq 18 ]
+		then 
+		jun=$(( $jun + 1 )) 
+		mon[6]=$jun 
+
+	elif [ $R -eq 7 -o $R -eq 19 ]
+		then 
+		jul=$(( $jul + 1 )) 
+		mon[7]=$jul 
+
+	elif [ $R -eq 8 -o $R -eq 20 ]
+		then 
+		aug=$(( $aug + 1 )) 
+		mon[8]=$aug 
+
+	elif [ $R -eq 9 -o $R -eq 21 ]
+		then 
+		sep=$(( $sep + 1 )) 
+		mon[9]=$sep 
+
+	elif [ $R -eq 10 -o $R -eq 22 ]
+		then 
+		oct=$(( $oct + 1 ))
+		mon[10]=$oct 
+
+	elif [ $R -eq 11 -o $R -eq 23 ] 
+		then 
+		nov=$(( $nov + 1 )) 
+		mon[11]=$nov 
+
+	elif [ $R -eq 12 -o $R -eq 24 ] 
+		then 
+		dec=$(( $dec + 1 )) 
+		mon[12]=$dec 
+	fi 
+done 
+
+echo "The length of the dictionary is ${#mon[@]}" 
+
+for i in `seq ${#mon[@]}` 
+do 
+	echo "$i month : ${mon[$i]} people" 
+done 
+
+Output : 
+
+$ ./Birthday.sh 
+18 
+4 
+20 
+7 
+1 
+20 
+4 
+21 
+14 
+11 
+The length of the dictionary is 12 
+1 month : 1 people 
+2 month : 1 people 
+3 month : 0 people 
+4 month : 2 people 
+5 month : 0 people 
+6 month : 1 people 
+7 month : 1 people 
+8 month : 2 people 
+9 month : 1 people 
+10 month : 0 people 
+11 month : 1 people 
+12 month : 0 people
+
+Output : 
+
+$ ./Birthday.sh 
+16 
+20 
+6 
+1 
+18 
+24 
+24 
+3 
+4 
+13 
+The length of the dictionary is 12 1 month : 2 people 
+2 month : 0 people 
+3 month : 1 people 
+4 month : 2 people 
+5 month : 0 people 
+6 month : 2 people 
+7 month : 0 people 
+8 month : 1 people 
+9 month : 0 people 
+10 month : 0 people 
+11 month : 0 people 
+12 month : 2 people
